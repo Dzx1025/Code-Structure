@@ -24,9 +24,9 @@ public:
         int st, en;
         for (int i = 0; i < side; ++i) {
             cin >> st >> en;
-            if (st == en) continue;
-            map[st][en] = true;
-            map[en][st] = true;
+            if (st == en) continue;     //不存在自环
+            map[st][en] = true;     
+            map[en][st] = true;     //无向图
         }
 
     }
@@ -63,12 +63,12 @@ private:
 
     void dfs(stack<int> &stk, vector<bool> &vis) {
         while (!stk.empty()) {
-            bool flag = false;
+            bool flag = false;  //标记是否可以继续深入，若无相连则出栈
             int now = stk.top();
 
             for (int i = 1; i <= numOfNode; ++i) {
 
-                if (map[now][i]) {
+                if (map[now][i]) {      //与now相连的点
                     if (!vis[i]) {
                         cout << " " << i;
                         stk.push(i);
